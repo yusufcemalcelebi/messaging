@@ -11,7 +11,7 @@ namespace Messaging.Api.Helpers
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var user = (UserDto)context.HttpContext.Items["User"];
+            var user = context.HttpContext.Items["User"];
             if (user == null)
             {
                 // not logged in

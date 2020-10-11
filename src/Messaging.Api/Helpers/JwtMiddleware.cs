@@ -27,12 +27,12 @@ namespace Messaging.Api.Helpers
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
-                AttachUserToContext(context, userService, token);
+                await AttachUserToContextAsync(context, userService, token);
 
             await _next(context);
         }
 
-        private void AttachUserToContext(HttpContext context, IUserService _userService, string token)
+        private async Task AttachUserToContextAsync(HttpContext context, IUserService _userService, string token)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace Messaging.Api.Helpers
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
                 // attach user to context on successful jwt validation
-                context.Items["User"] = _userService.GetById(userId);
+                context.Items["User"] = await _userService.GetById(userId);
             }
             catch
             {

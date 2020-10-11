@@ -6,6 +6,7 @@ using Messaging.Api.Models.Settings;
 using Messaging.Core.Abstractions.Service;
 using Messaging.Data;
 using Messaging.Service;
+using Messaging.Service.Messaging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -41,6 +42,8 @@ namespace Messaging.Api
             // DI
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IMessagingService, MessagingService>();
+            services.AddScoped<IBlockingService, BlockingService>();
 
             // Settings
             services.Configure<AuthenticationSettings>(Configuration.GetSection("AuthenticationSettings"));
@@ -58,6 +61,26 @@ namespace Messaging.Api
                     Description = "Messaging Application with basic Auth functionality"
                 });
                 c.IncludeXmlComments(GetXmlCommentsPath());
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                   {
+                     new OpenApiSecurityScheme
+                     {
+                       Reference = new OpenApiReference
+                       {
+                         Type = ReferenceType.SecurityScheme,
+                         Id = "Bearer"
+                       }
+                      },
+                      new string[] { }
+                    }
+                  });
             });
         }
 
@@ -75,7 +98,7 @@ namespace Messaging.Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

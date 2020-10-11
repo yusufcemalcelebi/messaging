@@ -15,6 +15,7 @@
   <ItemGroup>
     <Folder Include="Authentication\" />
     <Folder Include="User\" />
+    <Folder Include="Messaging\" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>

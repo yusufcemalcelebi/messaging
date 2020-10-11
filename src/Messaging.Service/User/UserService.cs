@@ -26,5 +26,11 @@ namespace Messaging.Service
 
             return userDto;
         }
+
+        public async Task<bool> IsExists(int id)
+        {
+            var isExists  = await _dbContext.Users.AnyAsync(u => u.ID == id);
+            return isExists;
+        }
     }
 }
