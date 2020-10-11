@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Abstractions\" />
+    <Folder Include="Abstractions\Service\" />
+    <Folder Include="Dto\" />
+    <Folder Include="Dto\Authentication\" />
+    <Folder Include="Abstractions\Service\Authentication\" />
+    <Folder Include="Abstractions\Service\User\" />
+    <Folder Include="Dto\User\" />
+    <Folder Include="Settings\" />
+    <Folder Include="Constants\" />
+  </ItemGroup>
+</Project>
