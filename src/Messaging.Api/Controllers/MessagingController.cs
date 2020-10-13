@@ -34,7 +34,7 @@ namespace Messaging.Api.Controllers
 
             var responseDto = await _messagingService.SendMessage(requestDto);
             if (!responseDto.IsSuccess)
-                return BadRequest(new { responseDto.ErrorCodes });
+                return BadRequest(new { responseDto.ErrorMessages });
 
             return Ok();
         }

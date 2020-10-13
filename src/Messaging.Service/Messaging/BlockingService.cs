@@ -39,7 +39,7 @@ namespace Messaging.Service.Messaging
                 if (!isBlockedUserExists)
                     return new BaseResponseDto {
                         IsSuccess = false,
-                        ErrorCodes = new HashSet<string> { ErrorCodes.BlockingBlockedUserNotFound }
+                        ErrorMessages = new HashSet<string> { ErrorMessages.BlockingBlockedUserNotFound }
                     };
 
                 var newBlockEntity = _mapper.Map<Block>(dto);

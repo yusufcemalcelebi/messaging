@@ -27,7 +27,7 @@ namespace Messaging.Api.Controllers
             var responseDto = await _authenticationService.LoginAsync(requestDto);
 
             if (!responseDto.IsSuccess)
-                return BadRequest(new { responseDto.ErrorCodes });
+                return BadRequest(new { responseDto.ErrorMessages });
 
             var responseModel = _mapper.Map<LoginResponseModel>(responseDto);
             return Ok(responseModel);
@@ -40,7 +40,7 @@ namespace Messaging.Api.Controllers
             var responseDto = await _authenticationService.RegisterAsync(requestDto);
 
             if (!responseDto.IsSuccess)
-                return BadRequest(new { responseDto.ErrorCodes });
+                return BadRequest(new { responseDto.ErrorMessages });
 
             var responseModel = _mapper.Map<RegisterResponseModel>(responseDto);
             return Ok(responseModel);

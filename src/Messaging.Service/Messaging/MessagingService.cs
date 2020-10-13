@@ -53,16 +53,16 @@ namespace Messaging.Service.Messaging
 
             var isReceiverExists = await _userService.IsExists(requestDto.ReceiverId);
             if (!isReceiverExists)
-                errorCodes.Add(ErrorCodes.MessageReceiverNotFound);
+                errorCodes.Add(ErrorMessages.MessageReceiverNotFound);
 
             var anyBlock = await _blockService.IsBlockExists(requestDto.SenderId, requestDto.ReceiverId);
             if (anyBlock)
-                errorCodes.Add(ErrorCodes.MessageBlockedUser);
+                errorCodes.Add(ErrorMessages.MessageBlockedUser);
 
             if (errorCodes.Any())
                 return new BaseResponseDto
                 {
-                    ErrorCodes = errorCodes,
+                    ErrorMessages = errorCodes,
                     IsSuccess = false
                 };
 

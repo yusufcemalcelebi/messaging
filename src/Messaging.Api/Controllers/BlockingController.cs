@@ -34,7 +34,7 @@ namespace Messaging.Api.Controllers
 
             var response = await _blockingService.InsertOrUpdateBlock(blockingDto);
             if (!response.IsSuccess)
-                return BadRequest(new { response.ErrorCodes });
+                return BadRequest(new { response.ErrorMessages });
 
             return Ok();
         }

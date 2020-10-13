@@ -42,7 +42,7 @@ namespace Messaging.Service
                 return new LoginResponseDto
                 {
                     IsSuccess = false,
-                    ErrorCodes = new HashSet<string> { ErrorCodes.LoginInvalidLogin }
+                    ErrorMessages = new HashSet<string> { ErrorMessages.LoginInvalidLogin }
                 };
 
             var token = GenerateJwtToken(user);
@@ -60,14 +60,14 @@ namespace Messaging.Service
 
             var isEmailExists = await _dbContext.Users.AnyAsync(u => u.Email == requestDto.Email);
             if (isEmailExists)
-                errorCodes.Add(ErrorCodes.RegisterEmailAlreadyExists);
+                errorCodes.Add(ErrorMessages.RegisterEmailAlreadyExists);
 
             var isUsernameExists = await _dbContext.Users.AnyAsync(u => u.Username == requestDto.Username);
             if (isUsernameExists)
-                errorCodes.Add(ErrorCodes.RegisterUsernameAlreadyExists);
+                errorCodes.Add(ErrorMessages.RegisterUsernameAlreadyExists);
 
             if (errorCodes.Any())
-                return new RegisterResponseDto { IsSuccess = false, ErrorCodes = errorCodes };
+                return new RegisterResponseDto { IsSuccess = false, ErrorMessages = errorCodes };
 
             var userEntity = _mapper.Map<User>(requestDto);
 

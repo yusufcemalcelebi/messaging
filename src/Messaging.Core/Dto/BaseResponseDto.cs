@@ -7,11 +7,11 @@ namespace Messaging.Core.Dto
     {
         public BaseResponseDto()
         {
-            ErrorCodes = new HashSet<string>();
+            ErrorMessages = new HashSet<string>();
             IsSuccess = true;
         }
 
         public bool IsSuccess { get; set; }
-        public HashSet<string> ErrorCodes { get; set; }
+        public HashSet<string> ErrorMessages { get; set; }
     }
 }

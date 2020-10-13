@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using System.Linq;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Messaging.Api.Helpers;
 using Messaging.Api.Models.Settings;
 using Messaging.Core.Abstractions.Service;
@@ -9,6 +11,7 @@ using Messaging.Service;
 using Messaging.Service.Messaging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -50,6 +53,20 @@ namespace Messaging.Api
 
             services.AddCors();
             services.AddControllers();
+
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services.AddControllers().ConfigureApiBehaviorOptions(op => op.InvalidModelStateResponseFactory = c =>
+            {
+                var result = new
+                {
+                    ErrorMessages = c.ModelState.Values.Where(x => x.Errors.Count > 0)
+                        .SelectMany(x => x.Errors)
+                        .Select(x => x.ErrorMessage)
+                        .ToList()
+                };
+                return new BadRequestObjectResult(result);
+            });
 
             // Inject an implementation of ISwaggerProvider with defaulted settings applied
             services.AddSwaggerGen(c =>
