@@ -116,6 +116,7 @@ namespace Messaging.Api
             app.UseRouting();
 
             app.UseMiddleware<JwtMiddleware>();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

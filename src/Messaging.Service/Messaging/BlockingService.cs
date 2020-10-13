@@ -27,6 +27,7 @@ namespace Messaging.Service.Messaging
 
         public async Task<BaseResponseDto> InsertOrUpdateBlock(BlockingDto dto)
         {
+            //TODO: drop cache
             var existedBlockEntity = await _dbContext.Blocks.FirstOrDefaultAsync(b =>
                 b.FKBlockedUserId == dto.BlockedId &&
                 b.FKBlockerUserId == dto.BlockerId);
@@ -53,6 +54,7 @@ namespace Messaging.Service.Messaging
 
         public async Task<bool> IsBlockExists(int senderId, int receiverId)
         {
+            //TODO: use cached block list
             var isExists = await _dbContext.Blocks.AnyAsync(b => b.FKBlockedUserId == senderId &&
                                                                         b.FKBlockerUserId == receiverId);
 
