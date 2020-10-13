@@ -11,10 +11,17 @@
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.9" />
+    <PackageReference Include="Moq" Version="4.14.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Messaging.Service\Messaging.Service.csproj" />
+    <ProjectReference Include="..\..\src\Messaging.Api\Messaging.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Authentication\" />
+    <Folder Include="Messaging\" />
+  </ItemGroup>
 </Project>

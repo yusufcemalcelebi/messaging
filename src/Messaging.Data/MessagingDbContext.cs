@@ -1,28 +1,18 @@
-﻿using Messaging.Core.Abstractions;
-using Messaging.Data.Entities;
+﻿using Messaging.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace Messaging.Data
 {
     public class MessagingDbContext : DbContext
     {
-        private readonly IConfiguration _configuration;
-
-        public MessagingDbContext(DbContextOptions<MessagingDbContext> options, IConfiguration configuration)
+        public MessagingDbContext(DbContextOptions<MessagingDbContext> options)
             : base(options)
         {
-            _configuration = configuration;
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Block> Blocks { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseSqlServer(_configuration.GetConnectionString("MessagingDB"));
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

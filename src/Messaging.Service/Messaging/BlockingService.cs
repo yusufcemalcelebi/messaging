@@ -56,7 +56,8 @@ namespace Messaging.Service.Messaging
         {
             //TODO: use cached block list
             var isExists = await _dbContext.Blocks.AnyAsync(b => b.FKBlockedUserId == senderId &&
-                                                                        b.FKBlockerUserId == receiverId);
+                                                                 b.FKBlockerUserId == receiverId &&
+                                                                 b.IsActive);
 
             return isExists;
         }

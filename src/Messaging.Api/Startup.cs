@@ -12,6 +12,7 @@ using Messaging.Service.Messaging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -40,7 +41,8 @@ namespace Messaging.Api
             var mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddDbContext<MessagingDbContext>();
+            services.AddDbContext<MessagingDbContext>(db =>
+                db.UseSqlServer(Configuration.GetConnectionString("MessagingDB")));
 
             // DI
             services.AddScoped<IAuthenticationService, AuthenticationService>();
