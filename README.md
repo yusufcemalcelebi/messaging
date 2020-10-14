@@ -1,6 +1,11 @@
 # Messaging Service
 
-- These app consists of basic Messaging methods for a real world scenario with the Authentication mechanisms.   
+To start the application with the required dependencies
+
+`docker-compose build`
+`docker-compose up`
+
+- This app consists of basic Messaging methods for a real-world scenario with the Authentication mechanisms.  
 - JWT is used to implement Authentication and Authorization functionalities.
 - .Net Core 3.1 Web Api is used with the layered architecture. EF Core is used to implement data access logic. 
 - Code First Migration is used to create require tables in the SQL Server 2017. 
