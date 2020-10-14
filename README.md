@@ -37,8 +37,8 @@ Blocking API's can be used to block and to unblock the target users.
 
 * [Create or Update Block](docs/blocking/post.md) : `POST /api/v1/Blocking`
 
-
-### TODOs that will improve the system 
+   
+## TODOs that will improve the system   
 - [ ] In memory caching mechanism for the blocked users
 - [ ] Repository pattern for the data access layer to provide Seperation Of Concern. This can be great for unit tests, in this codebase we need to mock the DBContext at business layer.
 - [ ] Split the MapperContainer for each of the required layer to manage dependencies
