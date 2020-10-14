@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+PROJECT_REPONAME="messaging"
+BUILD_NUMBER="1"
+
 docker build \
     --build-arg container="$PROJECT_REPONAME" \
     --build-arg container="$BUILD_NUMBER" \

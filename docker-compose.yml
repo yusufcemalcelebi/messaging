@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./ci/app.dockerfile
+    image: yusufcemalcelebi/messaging
+    container_name: messaging
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mssql
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      
+  mssql:
+    build:
+      context: ci
+      dockerfile: mssql.dockerfile
+    image: yusufcemalcelebi/mssql
+    container_name: mssql
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Mypassword!1"
+      ACCEPT_EULA: "Y"
+  
+  # wait-for-it:
+  #   image: tutum/curl:alpine
+  #   restart: on-failure
+  #   command: sh -c "timeout -t 30 sh -c 'until curl -f -s -o /dev/null http://app:5000/healthcheck; do sleep 1; done'"
