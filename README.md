@@ -2,8 +2,8 @@
 
 To start the application with the required dependencies
 
-`docker-compose build`
-`docker-compose up`
+`docker-compose build`   
+`docker-compose up`   
 
 - This app consists of basic Messaging methods for a real-world scenario with the Authentication mechanisms.  
 - JWT is used to implement Authentication and Authorization functionalities.
@@ -15,8 +15,9 @@ To start the application with the required dependencies
 
 Open endpoints require no Authentication.
 
-* [Login](login.md) : `POST /api/v1/Authentication/Login/`
-* [Register](register.md) : `POST /api/v1/Authentication/Register/`
+* [Login](docs/authentication/login.md) : `POST /api/v1/Authentication/Login`
+* [Register](docs/authentication/register.md) : `POST /api/v1/Authentication/Register`
+* HealthCheck : `GET /healthcheck`
 
 ## Endpoints that require Authentication
 
@@ -27,11 +28,19 @@ request. A Token can be acquired from the Login or Register endpoints
 
 Message Controller includes the API's to get messages and to send message. 
 
-* [Get Messages](messaging/get.md) : `GET /api/v1/Messaging/`
-* [Send Message](user/post.md) : `POST /api/v1/Messaging`
+* [Get Messages](docs/messaging/get.md) : `GET /api/v1/Messaging`
+* [Send Message](docs/messaging/post.md) : `POST /api/v1/Messaging`
 
 ### Blocking
 
 Blocking API's can be used to block and to unblock the target users. 
 
-* [Create or Update Block](blocking/post.md) : `POST /api/v1/Blocking/`
+* [Create or Update Block](docs/blocking/post.md) : `POST /api/v1/Blocking`
+
+
+### TODOs that will improve the system 
+- [ ] In memory caching mechanism for the blocked users
+- [ ] Repository pattern for the data access layer to provide Seperation Of Concern. This can be great for unit tests, in this codebase we need to mock the DBContext at business layer.
+- [ ] Split the MapperContainer for each of the required layer to manage dependencies
+- [ ] Additional unit tests
+
