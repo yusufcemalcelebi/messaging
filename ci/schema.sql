@@ -37,6 +37,7 @@ CREATE TABLE [Messages] (
     [FKSenderId] int NOT NULL,
     [FKReceiverId] int NOT NULL,
     [Date] datetime2 NOT NULL,
+    [IsSpam] bit NOT NULL,
     CONSTRAINT [PK_Messages] PRIMARY KEY ([ID]),
     CONSTRAINT [FK_Messages_Users_FKReceiverId] FOREIGN KEY ([FKReceiverId]) REFERENCES [Users] ([ID]) ON DELETE NO ACTION,
     CONSTRAINT [FK_Messages_Users_FKSenderId] FOREIGN KEY ([FKSenderId]) REFERENCES [Users] ([ID]) ON DELETE NO ACTION

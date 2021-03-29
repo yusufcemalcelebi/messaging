@@ -8,6 +8,8 @@ namespace Messaging.Data.Entities
         public string Text { get; set; }
         public int FKSenderId { get; set; }
         public int FKReceiverId { get; set; }
+        public bool IsSpam { get; set; }
+        
         public DateTime Date { get; set; }
 
         public User Sender { get; set; }

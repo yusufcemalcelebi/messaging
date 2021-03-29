@@ -18,14 +18,16 @@ namespace Messaging.Service.Messaging
         private readonly IUserService _userService;
         private readonly MessagingDbContext _messagingDbContext;
         private readonly IBlockingService _blockService;
+        private readonly ISpamDetectionService _spamDetectionService;
         private readonly IMapper _mapper;
 
         public MessagingService(IUserService userService, MessagingDbContext messagingDbContext,
-            IBlockingService blockService, IMapper mapper)
+            IBlockingService blockService, IMapper mapper, ISpamDetectionService spamDetectionService)
         {
             _userService = userService;
             _messagingDbContext = messagingDbContext;
             _blockService = blockService;
+            _spamDetectionService = spamDetectionService;
             _mapper = mapper;
         }
 
@@ -68,6 +70,12 @@ namespace Messaging.Service.Messaging
 
 
             var message = _mapper.Map<Message>(requestDto);
+
+            message.IsSpam = await _spamDetectionService.IsSpam(new GetSpamProbabilityRequestDto{
+                Message = requestDto.Text,
+                UserId = requestDto.SenderId
+            });
+
             message.Date = DateTime.Now;
 
             await _messagingDbContext.Messages.AddAsync(message);
@@ -78,7 +86,5 @@ namespace Messaging.Service.Messaging
                 IsSuccess = true
             };
         }
-
- 
     }
 }

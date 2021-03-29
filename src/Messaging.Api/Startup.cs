@@ -49,9 +49,11 @@ namespace Messaging.Api
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMessagingService, MessagingService>();
             services.AddScoped<IBlockingService, BlockingService>();
+            services.AddScoped<ISpamDetectionService, SpamDetectionService>();
 
             // Settings
             services.Configure<AuthenticationSettings>(Configuration.GetSection("AuthenticationSettings"));
+            services.Configure<SpamDetectionSettings>(Configuration.GetSection("SpamDetectionSettings"));
 
             services.AddCors();
             services.AddControllers();
@@ -101,6 +103,8 @@ namespace Messaging.Api
                     }
                   });
             });
+
+            services.AddHttpClient();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
