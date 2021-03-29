@@ -100,8 +100,12 @@ namespace Messaging.Service.Tests.Messaging
                 mockBlockService.Setup(bs => bs.IsBlockExists(It.IsAny<int>(), It.IsAny<int>()))
                     .Returns(Task.FromResult(false));
 
+                var mockSpamDetectionService = new Mock<ISpamDetectionService>();
+                mockSpamDetectionService.Setup(sds => sds.IsSpam(It.IsAny<GetSpamProbabilityRequestDto>()))
+                    .Returns(Task.FromResult(true));
+
                 var messagingService = new MessagingService(mockUserService.Object, dbContext,
-                    mockBlockService.Object, GetMapper());
+                    mockBlockService.Object, GetMapper(), mockSpamDetectionService.Object);
 
                 // act
                 var result = await messagingService.SendMessage(new SendMessageRequestDto
@@ -133,9 +137,13 @@ namespace Messaging.Service.Tests.Messaging
                 var mockBlockService = new Mock<IBlockingService>();
                 mockBlockService.Setup(bs => bs.IsBlockExists(It.IsAny<int>(), It.IsAny<int>()))
                     .Returns(Task.FromResult(true));
+                
+                var mockSpamDetectionService = new Mock<ISpamDetectionService>();
+                mockSpamDetectionService.Setup(sds => sds.IsSpam(It.IsAny<GetSpamProbabilityRequestDto>()))
+                    .Returns(Task.FromResult(true));
 
                 var messagingService = new MessagingService(mockUserService.Object, dbContext,
-                    mockBlockService.Object, GetMapper());
+                    mockBlockService.Object, GetMapper(), mockSpamDetectionService.Object);
 
                 // act
                 var result = await messagingService.SendMessage(new SendMessageRequestDto
@@ -169,8 +177,12 @@ namespace Messaging.Service.Tests.Messaging
                 mockBlockService.Setup(bs => bs.IsBlockExists(It.IsAny<int>(), It.IsAny<int>()))
                     .Returns(Task.FromResult(false));
 
+                var mockSpamDetectionService = new Mock<ISpamDetectionService>();
+                mockSpamDetectionService.Setup(sds => sds.IsSpam(It.IsAny<GetSpamProbabilityRequestDto>()))
+                    .Returns(Task.FromResult(true));
+
                 var messagingService = new MessagingService(mockUserService.Object, dbContext,
-                    mockBlockService.Object, GetMapper());
+                    mockBlockService.Object, GetMapper(), mockSpamDetectionService.Object);
 
                 // act
                 var result = await messagingService.SendMessage(new SendMessageRequestDto
@@ -205,8 +217,12 @@ namespace Messaging.Service.Tests.Messaging
                 mockBlockService.Setup(bs => bs.IsBlockExists(It.IsAny<int>(), It.IsAny<int>()))
                     .Returns(Task.FromResult(true));
 
+                var mockSpamDetectionService = new Mock<ISpamDetectionService>();
+                mockSpamDetectionService.Setup(sds => sds.IsSpam(It.IsAny<GetSpamProbabilityRequestDto>()))
+                    .Returns(Task.FromResult(true));
+
                 var messagingService = new MessagingService(mockUserService.Object, dbContext,
-                    mockBlockService.Object, GetMapper());
+                    mockBlockService.Object, GetMapper(), mockSpamDetectionService.Object);
 
                 // act
                 var result = await messagingService.SendMessage(new SendMessageRequestDto
