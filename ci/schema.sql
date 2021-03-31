@@ -63,5 +63,4 @@ GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
 VALUES (N'20201011102220_InitialCreate', N'3.1.8');
-
 GO

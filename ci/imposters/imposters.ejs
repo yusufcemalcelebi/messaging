@@ -1,0 +1,32 @@
+  {
+      "port": 5025,
+      "protocol": "http",
+      "name": "origin",
+      "stubs": [
+    {
+      "predicates": [
+      {
+        "contains": {
+                "body":  "\"Message\":\"indirim\"",
+                "body":  "\"UserId\":\"1\""
+              }
+        },
+        {
+          "equals": {
+            "method": "POST",
+            "path": "/"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "body": {
+			"SpamProbability": 0.1
+			}
+          }
+        }
+      ]
+    }
+  ]
+}

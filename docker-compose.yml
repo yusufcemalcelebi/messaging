@@ -11,8 +11,11 @@ services:
       - "5000:5000"
     depends_on:
       - mssql
+      - mountebank
+      - sqlapi
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
+      
       
   mssql:
     build:
@@ -26,6 +29,20 @@ services:
       SA_PASSWORD: "Mypassword!1"
       ACCEPT_EULA: "Y"
   
+  mountebank:
+    build:
+      context: ci
+      dockerfile: Dockerfile.mountebank
+    container_name: mountebank
+    image: cs-mountebank
+    ports:
+      - "5025:5025"
+      
+  sqlapi:
+    container_name: sqlapi
+    image: techciceksepeti/sqlapi:1.6
+    ports:
+      - "8033:8033"
   # wait-for-it:
   #   image: tutum/curl:alpine
   #   restart: on-failure
